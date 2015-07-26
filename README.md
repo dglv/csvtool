@@ -1,7 +1,8 @@
 ﻿#csvtool
 Simple tool to generate multiple strings by template.
 ###Example 
-<b>Template:</b> user*, login*, password*<br/>
+<b>Template:</b><br/>
+user^ , login^, password^
 
 <b>Result:</b><br/>
 user1, login1, password1<br/>
