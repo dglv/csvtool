@@ -1,4 +1,4 @@
-package ru.csvtool.holder;
+package com.dglv.csvtool.holder;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,33 +1,41 @@
-package ru.csvtool.logic;
+package com.dglv.csvtool;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.InvalidPropertiesFormatException;
 
-import ru.csvtool.holder.PropertiesHolder;
+import com.dglv.csvtool.holder.PropertiesHolder;
 
 public class CSVTool {
-	public static final String DEFAULT_CONFIG_FILE = "conf/config.xml";
-	
-	
+	private static final String DEFAULT_CONFIG_FILE_NAME = "config.xml";
+
 	public static void main(String args[])
 	{
+		final String configFileName= args.length > 0 ? args[0] : DEFAULT_CONFIG_FILE_NAME;
+
+		if(!new File(configFileName).isFile())
+		{
+			System.out.println("Configuration file not found");
+			System.out.println("usage: csvtool.jar " + DEFAULT_CONFIG_FILE_NAME);
+			System.exit(0);
+		}
+
 		/* initialize properties */
 		PropertiesHolder properties = null;
 		try
 		{
-			String configFileName = (args.length > 0 ? args[0] : DEFAULT_CONFIG_FILE);
 			System.out.println("Initializing properties: " + configFileName);
 			properties = new PropertiesHolder(configFileName);
 		}
 		catch(InvalidPropertiesFormatException e)
 		{
-			System.err.println("ERROR: xml bad format! " + e.getMessage());
+			System.err.println("ERROR: xml bad format " + e.getMessage());
 		}
 		catch(IOException e)
 		{
-			System.err.println("ERROR: IO Exception! " + e.getMessage());
+			System.err.println("ERROR: IO Exception" + e.getMessage());
 		}
 
 		/* initialize output file */

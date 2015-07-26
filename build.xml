@@ -1,0 +1,37 @@
+<project name="CSVTool" basedir="." default="jar">
+	<description>
+		buid an executable csvtool jar
+	</description>
+	<property name="src" location="src" />
+	<property name="bin" location="bin" />
+	<property name="conf" location="conf" />
+	<property name="dist" location="dist" />
+	<property name="config.file" value="config.xml" />
+	<property name="jar.file" value="csvtool.jar" />
+	<property name="main.class" value="com.dglv.csvtool.CSVTool" />
+
+	<target name="clean">
+		<delete dir="${bin}" />
+		<delete dir="${dist}" />
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${bin}" />
+		<javac includeantruntime="false" srcdir="${src}" destdir="${bin}" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${dist}" />
+		<jar destfile="${dist}/${jar.file}" basedir="${bin}" includes="**/*.class">
+			<manifest>
+				<attribute name="Main-Class" value="${main.class}" />
+			</manifest>
+		</jar>
+		<copy file="${config.file}" todir="${dist}"/>
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="${dist}/${jar.file}" fork="true" />
+	</target>
+
+</project>
